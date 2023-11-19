@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  app:
+    image: fastapi
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - WORKERS_UVICORN
+
+    ports:
+      - '8080:8080'
+    networks: 
+      - external_network
+
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: gobank
+      POSTGRES_DB: postgres
+    networks:
+      - external_network
+
+
+networks:
+  external_network:
+    name: GeneralNetwork

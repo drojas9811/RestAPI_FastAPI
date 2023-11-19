@@ -8,11 +8,11 @@ load_dotenv(dotenv_path=env_path)
 class Settings:
     PROJECT_NAME:str = "PROYECTO-FAST-API"
     PROJECT_VERSION:str = "1.0"
-    POSTGRES_DB:str = os.getenv('POSTGRES_DB')
-    POSTGRES_USER:str = os.getenv('POSTGRES_USER')
-    POSTGRES_PASSWORD:str = os.getenv('POSTGRES_PASSWORD')
-    POSTGRES_SERVER:str = os.getenv('POSTGRES_SERVER')
-    POSTGRES_PORT:str = os.getenv('POSTGRES_PORT')
+    POSTGRES_DB:str = "postgres"
+    POSTGRES_USER:str = "postgres"
+    POSTGRES_PASSWORD:str = "gobank"
+    POSTGRES_SERVER:str = "db"
+    POSTGRES_PORT:str = "5432"
     DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
 settings = Settings()
