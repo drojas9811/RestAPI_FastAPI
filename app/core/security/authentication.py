@@ -13,3 +13,5 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     )
 
     return verify_token(token,credentials_exception)
+
+

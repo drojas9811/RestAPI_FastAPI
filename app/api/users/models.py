@@ -1,7 +1,7 @@
 
 from pydantic import BaseModel 
 
-from typing import Optional,Union
+from typing import Optional
 from datetime import datetime 
 
 #User Model 
@@ -30,14 +30,3 @@ class ShowUser(BaseModel):
     correo:str 
     class Config():
         orm_mode = True 
-
-class Login(BaseModel):
-    username:str 
-    password:str
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-class TokenData(BaseModel):
-    username: Union[str, None] = None

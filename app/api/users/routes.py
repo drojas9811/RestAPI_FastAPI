@@ -3,7 +3,7 @@ from app.schemas import User,ShowUser,UpdateUser
 from app.db.database import get_db
 from sqlalchemy.orm import Session 
 from typing import List
-from app.repository import user 
+from app.api.users.dependencies import user 
 from app.oauth import get_current_user
 router = APIRouter(
     prefix="/user",

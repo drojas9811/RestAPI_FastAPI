@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from app.db.database import get_db
 from app.schemas import Login
-from app.repository import auth 
+from app.api.login.dependencies import auth 
 from fastapi.security import OAuth2PasswordRequestForm
 
 router = APIRouter(
