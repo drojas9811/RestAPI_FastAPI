@@ -2,9 +2,9 @@ from fastapi import Request,APIRouter,Depends,HTTPException,status
 from fastapi.templating import Jinja2Templates
 import aiohttp
 from starlette.responses import RedirectResponse, Response
-from app.token import verify_token
+from app.core.security.jwt import verify_token
 
-router = APIRouter(include_in_schema=False)
+loginWeb = APIRouter(include_in_schema=False)
 templates = Jinja2Templates(directory="app/templates")
 
 url = "http://localhost:8000"
@@ -25,27 +25,27 @@ def get_current_user(request:Request):
         return verify_token(token,credentials_exception)
 
 
-@router.get("/")
+@loginWeb.get("/")
 def home(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
 
 
 
 
-@router.get("/salir")
+@loginWeb.get("/salir")
 def salir(reponse:Response, request: Request):
     msj = ""
     response = RedirectResponse("/", status_code=302)
     response.delete_cookie("access_token")
     return response
 
-@router.get("/login_web")
+@loginWeb.get("/login_web")
 def login_web(request: Request):
     msj = ""
     
     return templates.TemplateResponse("login.html", {"request": request,"msj":msj})
 
-@router.post("/login_web")
+@loginWeb.post("/login_web")
 async def login_web(response:Response, request: Request):
     form = await request.form()
     usuario = {

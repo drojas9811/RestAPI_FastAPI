@@ -2,9 +2,9 @@ from fastapi import Request,APIRouter,Depends,HTTPException,status
 from fastapi.templating import Jinja2Templates
 import aiohttp
 from starlette.responses import RedirectResponse, Response
-from app.token import verify_token
+from app.core.security.jwt import verify_token
 
-router = APIRouter(include_in_schema=False)
+usersWeb = APIRouter(include_in_schema=False)
 templates = Jinja2Templates(directory="app/templates")
 
 url = "http://localhost:8000"
@@ -24,12 +24,12 @@ def get_current_user(request:Request):
 
         return verify_token(token,credentials_exception)
 
-@router.get("/register")
+@usersWeb.get("/register")
 def registration(request: Request):
     msj = ""
     return templates.TemplateResponse("create_user.html", {"request": request,"msj":msj})
 
-@router.post("/register")
+@usersWeb.post("/register")
 async def registration(request: Request):
     form = await request.form()
     usuario = {
@@ -56,7 +56,7 @@ async def registration(request: Request):
     
     
     
-@router.get("/mostrar_usuarios")
+@usersWeb.get("/mostrar_usuarios")
 def mostrar_usuarios(request: Request,current_user=Depends(get_current_user)):
     msj = ""
     if current_user:

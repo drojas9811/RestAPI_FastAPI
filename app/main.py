@@ -1,10 +1,17 @@
 from fastapi import FastAPI 
 import uvicorn 
-from app.db.database import Base,engine
-from app.routers import user,auth,web
+from app.api.login.routes import login
+from app.api.users.routes import users
+from app.frontend.login.routes import loginWeb
+from app.frontend.users.routes import usersWeb
 
 app = FastAPI()
-app.include_router(user.router)
+app.include_router(users)
+app.include_router(login)
+app.include_router(loginWeb)
+app.include_router(usersWeb)
 
-app.include_router(auth.router)
-app.include_router(web.router)
+##
+##app.mount(Routes.REGISTER, paquetes_app)  # /api/v1.0.0/signup
+##app.mount(Routes.ACCOUNTS, accounts_app)  # /api/v1.0.0/accounts
+##

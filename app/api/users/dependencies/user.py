@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session 
 from app.db import models
 from fastapi import HTTPException,status 
-from app.hashing import Hash
+from app.core.security.password import Hash
 
 def crear_usuario(usuario,db:Session):
     usuario = usuario.dict()
