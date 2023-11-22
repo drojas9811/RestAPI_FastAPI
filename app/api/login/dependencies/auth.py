@@ -4,20 +4,20 @@ from fastapi import HTTPException,status
 from app.core.security.password import Hash
 from app.core.security.authentication import create_access_token
 
-def auth_user(usuario,db:Session):
+def auth_user(user,db:Session):
 
-    user = db.query(models.User).filter(models.User.username==usuario.username).first()
+    user = db.query(models.User).filter(models.User.username==user.username).first()
 
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"""No existe el usuario con el username {usuario.username} por lo tanto no se realiza el login"""
+            detail=f"""User {user.username} doesn't exist. Invalid login ."""
         )
     
-    if not Hash.verify_password(usuario.password, user.password):
+    if not Hash.verify_password(user.password, user.password):
         raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"""Contraseña incorrecta ! """
+                detail=f"""Invalid password """
             )
     access_token = create_access_token(
         data={"sub": usuario.username}

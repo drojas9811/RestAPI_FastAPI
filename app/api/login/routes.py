@@ -12,6 +12,6 @@ login = APIRouter(
 )
 
 @login.post('/',status_code=status.HTTP_200_OK)
-def login(usuario:OAuth2PasswordRequestForm = Depends(),db:Session = Depends(get_db)):
-    auth_token = auth.auth_user(usuario, db)
+def login(user:OAuth2PasswordRequestForm = Depends(),db:Session = Depends(get_db)):
+    auth_token = auth.auth_user(user, db)
     return auth_token
