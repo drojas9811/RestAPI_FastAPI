@@ -11,7 +11,7 @@ venv/
 .coverage
 .coverage.*
 .cache
-.env
+**.env
 nosetests.xml
 coverage.xml
 *.cover
