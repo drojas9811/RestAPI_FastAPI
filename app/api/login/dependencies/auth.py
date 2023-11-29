@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session 
-from app.db import models
+from app.api.users import models
 from fastapi import HTTPException,status 
 from app.core.security.password import Hash
 from app.core.security.authentication import create_access_token
@@ -20,7 +20,7 @@ def auth_user(user,db:Session):
                 detail=f"""Invalid password """
             )
     access_token = create_access_token(
-        data={"sub": usuario.username}
+        data={"sub": user.username}
     )
     return {"access_token": access_token, "token_type": "bearer"}
 

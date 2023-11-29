@@ -1,60 +1,60 @@
 from sqlalchemy.orm import Session 
-from app.db import models
+from app.api.users import models
 from fastapi import HTTPException,status 
 from app.core.security.password import Hash
 
-def crear_usuario(usuario,db:Session):
-    usuario = usuario.dict()
+def new_user(inUser,db:Session):
+    dictUser = inUser.dict()
     try:
-        nuevo_usuario = models.User(
-            username=usuario["username"],
-            password=Hash.hash_password(usuario["password"]),
-            nombre=usuario["nombre"],
-            apellido=usuario["apellido"],
-            direccion=usuario["direccion"],
-            telefono=usuario["telefono"],
-            correo=usuario["correo"],
+        newUser = models.User(
+            username=dictUser["username"],
+            password=Hash.hash_password(dictUser["password"]),
+            nombre=dictUser["nombre"],
+            apellido=dictUser["apellido"],
+            direccion=dictUser["direccion"],
+            telefono=dictUser["telefono"],
+            correo=dictUser["correo"],
         )
-        db.add(nuevo_usuario)
+        db.add(newUser)
         db.commit()
-        db.refresh(nuevo_usuario)
+        db.refresh(newUser)
     except Exception as e :
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=f"Error creando usuario {e}"
         )
 
-def obtener_usuario(user_id,db:Session):
-    usuario = db.query(models.User).filter(models.User.id == user_id ).first()
-    if not usuario:
+def get_user(user_id,db:Session):
+    userFromDB = db.query(models.User).filter(models.User.id == user_id ).first()
+    if not userFromDB:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"No existe el usuario con el id {user_id}"
+            detail=f"User {user_id} doesn't exist."
         )
-    return usuario
+    return userFromDB
 
-def eliminar_usuario(user_id,db:Session):
-    usuario = db.query(models.User).filter(models.User.id == user_id )
-    if not usuario.first():
+def delete_user(user_id,db:Session):
+    userFromDB = db.query(models.User).filter(models.User.id == user_id )
+    if not userFromDB.first():
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"No existe el usuario con el id {user_id} por lo tanto no se elimina"
+            detail=f"User {user_id} doesn't exist."
         )
-    usuario.delete(synchronize_session=False)
+    userFromDB.delete(synchronize_session=False)
     db.commit()
-    return {"respuesta":"Usuario eliminado correctamente!"}
+    return {"response":"deleting was successful"}
 
-def obtener_usuarios(db:Session):
+def get_allUsers(db:Session):
     data = db.query(models.User).all()
     return data
 
-def actualizar_user(user_id,updateUser,db:Session):
-    usuario = db.query(models.User).filter(models.User.id == user_id )
-    if not usuario.first():
+def update_user(user_id,updateUser,db:Session):
+    userFromDB = db.query(models.User).filter(models.User.id == user_id )
+    if not userFromDB.first():
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"No existe el usuario con el id {user_id}"
+            detail=f"User {user_id} doesn't exist."
         )
-    usuario.update(updateUser.dict( exclude_unset=True))
+    userFromDB.update(updateUser.dict( exclude_unset=True))
     db.commit()
-    return {"respuesta":"Usuario actualizado correctamente!"}
+    return {"response":"updating was successful"}
