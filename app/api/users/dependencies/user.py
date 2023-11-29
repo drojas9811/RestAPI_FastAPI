@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session 
-from app.db import models
+from app.api.users import models
 from fastapi import HTTPException,status 
 from app.core.security.password import Hash
 
