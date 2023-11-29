@@ -12,7 +12,7 @@ url = "http://localhost:8000"
 
 def get_current_user(request:Request):
     token = request.cookies.get("access_token")
-    print("entre",token)
+    print("Token received::",token)
     if not token:
         return None 
     else:
@@ -35,31 +35,31 @@ async def registration(request: Request):
     usuario = {
         "username":form.get('username'),
         "password":form.get('password'),
-        "nombre":form.get('nombre'),
-        "apellido":form.get('apellido'),
-        "correo":form.get('correo'),
-        "direccion":form.get('direccion'),
-        "telefono":form.get('telefono'),
+        "name":form.get('name'),
+        "family name":form.get('family_name'),
+        "email":form.get('email'),
+        "address":form.get('address'),
+        "phone number":form.get('phone_number'),
     }
     url_post = f"{url}/user/"
     async with aiohttp.ClientSession() as session:
         response = await session.request(method="POST",url=url_post,json=usuario)
         response_json = await response.json()
         if "respuesta" in response_json:
-            msj = "Usuario creado satisfactoriamente!"
+            msj = "User was created successfully"
             type_alert = "primary"
         else:
-            msj = "Usuario no fue creado"
+            msj = "there was a problem creating the user"
             type_alert = "danger"
         return templates.TemplateResponse("create_user.html", {"request": request,"msj":msj,"type_alert":type_alert})   
     
     
     
     
-@usersWeb.get("/mostrar_usuarios")
-def mostrar_usuarios(request: Request,current_user=Depends(get_current_user)):
+@usersWeb.get("/show_users")
+def show_users(request: Request,current_user=Depends(get_current_user)):
     msj = ""
     if current_user:
-        return templates.TemplateResponse("mostrar_usuarios.html", {"request": request,"msj":msj})
+        return templates.TemplateResponse("show_users.html", {"request": request,"msj":msj})
     response = RedirectResponse("/", status_code=302)
     return response

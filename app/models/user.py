@@ -12,7 +12,7 @@ class User(Base):
     password = Column(String )
     name = Column(String)
     familyname = Column(String)
-    adress = Column(String)
+    address = Column(String)
     phonenumber = Column(String)
     email = Column(String, unique=True )
     creationdate = Column(DateTime, default=datetime.now, onupdate=datetime.now )
