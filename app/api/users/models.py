@@ -8,25 +8,25 @@ from datetime import datetime
 class User(BaseModel): #Schema 
     username:str
     password:str 
-    nombre:str 
-    apellido:str 
-    direccion:Optional[str]
-    telefono:int 
-    correo:str 
-    creacion_user:datetime =datetime.now()
+    name:str 
+    family_name:str 
+    address:Optional[str]
+    phone_number:int 
+    email:str 
+    date_creation:datetime =datetime.now()
 
 class UpdateUser(BaseModel): #Schema 
     username:str = None 
     password:str = None 
-    nombre:str = None 
-    apellido:str = None 
-    direccion:str = None 
-    telefono:int = None 
-    correo:str = None 
+    name:str = None 
+    family_name:str = None 
+    address:str = None 
+    phone_number:int = None 
+    email:str = None 
 
 class ShowUser(BaseModel):
     username:str 
     nombre:str 
-    correo:str 
+    email:str 
     class Config():
         orm_mode = True 

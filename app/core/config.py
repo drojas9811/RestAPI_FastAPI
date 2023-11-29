@@ -6,7 +6,7 @@ env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path)
 
 class Settings:
-    PROJECT_NAME:str = "PROYECTO-FAST-API"
+    PROJECT_NAME:str = "FAST-API-PROJECT"
     PROJECT_VERSION:str = "1.0"
     POSTGRES_DB:str = "postgres"
     POSTGRES_USER:str = "postgres"

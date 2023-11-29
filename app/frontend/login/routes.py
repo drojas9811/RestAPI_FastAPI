@@ -12,7 +12,7 @@ url = "http://localhost:8000"
 
 def get_current_user(request:Request):
     token = request.cookies.get("access_token")
-    print("entre",token)
+    print("Token received::",token)
     if not token:
         return None 
     else:
@@ -32,8 +32,8 @@ def home(request: Request):
 
 
 
-@loginWeb.get("/salir")
-def salir(reponse:Response, request: Request):
+@loginWeb.get("/exit")
+def exit(reponse:Response, request: Request):
     msj = ""
     response = RedirectResponse("/", status_code=302)
     response.delete_cookie("access_token")
@@ -57,7 +57,7 @@ async def login_web(response:Response, request: Request):
         response = await session.request(method="POST",url=url_post,data=usuario)
         response_json = await response.json()
         if 'access_token' not in response_json:
-            msj = "Usuario o contraseña incorrecto" 
+            msj = "invalid username or password" 
             return templates.TemplateResponse("login.html", {"request": request,"msj":msj})
         response = RedirectResponse("/",status_code=302)
         response.set_cookie(key="access_token",value=response_json["access_token"])
