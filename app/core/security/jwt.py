@@ -1,6 +1,7 @@
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
-from app.api.login import TokenData
+from app.api.login.models import TokenData
+import os
 
 SECRET_KEY = os.getenv("jwt_hash")
 ACCESS_TOKEN_EXPIRE_MINUTES = 30

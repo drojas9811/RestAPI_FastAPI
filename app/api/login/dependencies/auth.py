@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session 
-from app.api.users import models
+from app.api.login import models
 from fastapi import HTTPException,status 
 from app.core.security.password import Hash
-from app.core.security.authentication import create_access_token
+from app.core.security.jwt import create_access_token
 
 def auth_user(user,db:Session):
 
