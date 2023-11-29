@@ -1,6 +1,6 @@
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
-from app.api.login.models import TokenData
+from app.models.login import TokenDataModel
 import os
 
 SECRET_KEY = os.getenv("jwt_hash")
@@ -19,7 +19,7 @@ def verify_token(token:str,credentials_exception):
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
+        token_data = TokenDataModel(username=username)
         return True 
     except JWTError:
         raise credentials_exception

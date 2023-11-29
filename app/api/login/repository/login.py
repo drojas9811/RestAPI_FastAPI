@@ -1,12 +1,12 @@
 from sqlalchemy.orm import Session 
-from app.api.login import models
+from app.models.db import User
 from fastapi import HTTPException,status 
 from app.core.security.password import Hash
 from app.core.security.jwt import create_access_token
 
 def auth_user(user,db:Session):
 
-    user = db.query(models.User).filter(models.User.username==user.username).first()
+    user = db.query(User).filter(User.username==user.username).first()
 
     if not user:
         raise HTTPException(

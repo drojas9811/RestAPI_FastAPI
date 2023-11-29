@@ -1,7 +1,7 @@
 from fastapi import FastAPI 
 import uvicorn 
-from app.api.login.routes import login
-from app.api.users.routes import users
+from app.api.login.service.routes import login
+from app.api.users.service.routes import users
 from app.frontend.login.routes import loginWeb
 from app.frontend.users.routes import usersWeb
 

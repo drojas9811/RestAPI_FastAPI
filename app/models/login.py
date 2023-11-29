@@ -4,15 +4,15 @@ from pydantic import BaseModel
 from typing import Union
 
 
-class Login(BaseModel):
+class LoginModel(BaseModel):
     username: str
     password: str
 
 
-class Token(BaseModel):
+class TokenModel(BaseModel):
     access_token: str
     token_type: str
 
 
-class TokenData(BaseModel):
+class TokenDataModel(BaseModel):
     username: Union[str, None] = None

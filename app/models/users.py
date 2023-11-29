@@ -5,7 +5,7 @@ from typing import Optional
 from datetime import datetime 
 
 #User Model 
-class User(BaseModel): #Schema 
+class UserModel(BaseModel): #Schema 
     username:str
     password:str 
     name:str 
@@ -15,7 +15,7 @@ class User(BaseModel): #Schema
     email:str 
     date_creation:datetime =datetime.now()
 
-class UpdateUser(BaseModel): #Schema 
+class UpdateUserModel(BaseModel): #Schema 
     username:str = None 
     password:str = None 
     name:str = None 
@@ -24,7 +24,7 @@ class UpdateUser(BaseModel): #Schema
     phone_number:int = None 
     email:str = None 
 
-class ShowUser(BaseModel):
+class ShowUserModel(BaseModel):
     username:str 
     nombre:str 
     email:str 

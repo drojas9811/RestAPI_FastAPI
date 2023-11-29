@@ -22,3 +22,6 @@ cover/
 *.log
 .idea/
 debug.py
+.venv/*
+.DS_Store
+launch.json

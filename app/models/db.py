@@ -18,3 +18,12 @@ class User(Base):
     creationdate = Column(DateTime, default=datetime.now, onupdate=datetime.now )
     state = Column(Boolean,default=False)
     sale = relationship("Sale",backref="user",cascade="delete,merge")
+    
+    
+
+class Sale(Base):
+    __tablename__ = "sale"
+    id = Column(Integer,primary_key=True,autoincrement=True)
+    user_id = Column(Integer,ForeignKey("user.id",ondelete="CASCADE"))
+    worth = Column(Integer)
+    quatity = Column(Integer)

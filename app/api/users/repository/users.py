@@ -1,19 +1,19 @@
 from sqlalchemy.orm import Session 
-from app.api.users import models
+from app.models.users import *
+from app.models.db import *
 from fastapi import HTTPException,status 
 from app.core.security.password import Hash
-
 def new_user(inUser,db:Session):
     dictUser = inUser.dict()
     try:
-        newUser = models.User(
+        newUser = UserModel(
             username=dictUser["username"],
             password=Hash.hash_password(dictUser["password"]),
-            nombre=dictUser["nombre"],
-            apellido=dictUser["apellido"],
-            direccion=dictUser["direccion"],
-            telefono=dictUser["telefono"],
-            correo=dictUser["correo"],
+            name=dictUser["nombre"],
+            family_name=dictUser["apellido"],
+            address=dictUser["direccion"],
+            phone_number=dictUser["telefono"],
+            email=dictUser["correo"],
         )
         db.add(newUser)
         db.commit()
@@ -25,7 +25,7 @@ def new_user(inUser,db:Session):
         )
 
 def get_user(user_id,db:Session):
-    userFromDB = db.query(models.User).filter(models.User.id == user_id ).first()
+    userFromDB = db.query(User).filter(User.id == user_id ).first()
     if not userFromDB:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -34,7 +34,7 @@ def get_user(user_id,db:Session):
     return userFromDB
 
 def delete_user(user_id,db:Session):
-    userFromDB = db.query(models.User).filter(models.User.id == user_id )
+    userFromDB = db.query(User).filter(User.id == user_id )
     if not userFromDB.first():
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -45,11 +45,11 @@ def delete_user(user_id,db:Session):
     return {"response":"deleting was successful"}
 
 def get_allUsers(db:Session):
-    data = db.query(models.User).all()
+    data = db.query(User).all()
     return data
 
 def update_user(user_id,updateUser,db:Session):
-    userFromDB = db.query(models.User).filter(models.User.id == user_id )
+    userFromDB = db.query(User).filter(User.id == user_id )
     if not userFromDB.first():
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
