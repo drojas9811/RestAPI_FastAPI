@@ -6,14 +6,14 @@ from app.core.security.password import Hash
 def new_user(inUser,db:Session):
     dictUser = inUser.dict()
     try:
-        newUser = UserModel(
+        newUser = User(
             username=dictUser["username"],
             password=Hash.hash_password(dictUser["password"]),
-            name=dictUser["nombre"],
-            family_name=dictUser["apellido"],
-            address=dictUser["direccion"],
-            phone_number=dictUser["telefono"],
-            email=dictUser["correo"],
+            name=dictUser["name"],
+            familyname=dictUser["family_name"],
+            address=dictUser["address"],
+            phonenumber=dictUser["phone_number"],
+            email=dictUser["email"],
         )
         db.add(newUser)
         db.commit()
