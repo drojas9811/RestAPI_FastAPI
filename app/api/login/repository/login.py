@@ -6,15 +6,14 @@ from app.core.security.jwt import create_access_token
 
 def auth_user(user,db:Session):
 
-    user = db.query(User).filter(User.username==user.username).first()
+    userdb = db.query(User).filter(User.username==user.username).first()
 
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"""User {user.username} doesn't exist. Invalid login ."""
         )
-    
-    if not Hash.verify_password(user.password, user.password):
+    if not Hash.verify_password(user.password, userdb.password):
         raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"""Invalid password """

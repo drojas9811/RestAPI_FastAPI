@@ -12,3 +12,4 @@ requests
 coverage
 jinja2
 aiohttp
+pyyaml
