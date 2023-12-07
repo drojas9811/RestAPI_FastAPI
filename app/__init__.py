@@ -17,6 +17,11 @@ def load_envFile():
 def validate_env():
     vars = [
         "jwt_hash",
+        "SERVER_DB",
+        "PORT_DB",
+        "NAME_DB",
+        "USER_DB",
+        "PASSWORD_DB",
     ]
     for i in vars:
         if getenv(i) == None:
