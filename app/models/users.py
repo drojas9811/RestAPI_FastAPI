@@ -26,7 +26,7 @@ class UpdateUserModel(BaseModel): #Schema
 
 class ShowUserModel(BaseModel):
     username:str 
-    nombre:str 
+    name:str 
     email:str 
     class Config():
         orm_mode = True 
