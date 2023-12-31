@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from app.models.login import TokenDataModel
 import os
 
-SECRET_KEY = os.getenv("jwt_hash")
+SECRET_KEY = os.getenv("JWT_SECRET")
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 def create_access_token(data: dict):

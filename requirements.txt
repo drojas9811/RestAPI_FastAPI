@@ -13,3 +13,4 @@ coverage
 jinja2
 aiohttp
 pyyaml
+boto3
