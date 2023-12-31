@@ -19,12 +19,13 @@ class UpdateUserModel(BaseModel): #Schema
     username:str = None 
     password:str = None 
     name:str = None 
-    family_name:str = None 
+    familyname:str = None 
     address:str = None 
-    phone_number:int = None 
+    phonenumber:int = None 
     email:str = None 
 
 class ShowUserModel(BaseModel):
+    id:int
     username:str 
     name:str 
     email:str 
